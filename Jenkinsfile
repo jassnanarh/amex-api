@@ -17,7 +17,7 @@ pipeline {
         choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
     }
     triggers {
-        cron('* /4 * * * *')
+        cron('*/4 * * * *')
     }
     stages{
         stage('Checkout SCM') {
