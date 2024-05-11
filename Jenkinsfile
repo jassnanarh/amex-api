@@ -2,7 +2,7 @@ pipeline {
     agent { labels 'master'}
     tools {
         maven 'maven396' 
-        jdk 'jdk17'
+        jdk 'jdk11'
     }
     environment {
         CHIEF_AUTHOR = 'ASHER'
