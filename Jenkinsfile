@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'master'}
     tools {
-        maven 'maven396' 
+        maven 'maven' 
         jdk 'jdk11'
     }
     environment {
@@ -17,18 +17,18 @@ pipeline {
         choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
     }
     triggers {
-        cron('*/5 * * * *')
+        pollSCM('*/5 * * * *')
     }
     stages{
         stage('Checkout SCM') {
             steps {
                 checkout SCM
-                sh "echo $env.CHIEF_AUTHOR"
+                sh "echo $CHIEF_AUTHOR"
             }
         }
         stage('Compile') {
             steps {
-                sh 'maven compile'
+                sh 'mvn compile'
             }
         }
     }
