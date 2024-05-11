@@ -1,27 +1,29 @@
 pipeline {
-    agent {label 'master'}
-    tools{
+    agent { labels 'master'}
+    tools { 
         jdk 'jdk11'
         maven 'maven'
     }
     environment {
-        CHEIF_AUTHOR = 'Asher'
-        RETRY_CNT = 3
+        CHIEF_AUTHOR = 'ASHER'
+        RETRY_COUNT = 3
     }
-    options {
+    options { 
         buildDiscarder(logRotator(numToKeepStr: '3')) 
         disableConcurrentBuilds()
         quietPeriod(5)
     }
     parameters {
-     choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
+        choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
     }
- 
-    stages {
+    triggers {
+        pollSCM('*/5 * * * *')
+    }
+    stages{
         stage('Checkout SCM') {
             steps {
-                checkout scm
-                sh "echo $CHEIF_AUTHOR"
+                checkout SCM
+                sh "echo $CHIEF_AUTHOR"
             }
         }
         stage('Compile') {
@@ -32,3 +34,4 @@ pipeline {
     }
 
 }
+             
