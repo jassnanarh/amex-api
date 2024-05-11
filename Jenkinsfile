@@ -22,7 +22,7 @@ pipeline {
     stages{
         stage('Checkout SCM') {
             steps {
-                checkout SCM
+                checkout scm
                 sh "echo $CHIEF_AUTHOR"
             }
         }
