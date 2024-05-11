@@ -17,13 +17,13 @@ pipeline {
         choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
     }
     triggers {
-        cron('*/4 * * * *')
+        cron('*/5 * * * *')
     }
     stages{
         stage('Checkout SCM') {
             steps {
                 checkout SCM
-                sh 'echo ${env.CHIEF_AUTHOR}'
+                sh "echo $env.CHIEF_AUTHOR"
             }
         }
         stage('Compile') {
