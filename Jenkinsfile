@@ -44,6 +44,10 @@ pipeline {
         always {
             emailext attachLog: true, body: 'hello', subject: "BUILD STATUS $JOB_NAME", to: 'kaurjass261997@gmail.com, prabhjotsingh326@gmail.com'
         }
+        success {
+            mail bcc: '', body: 'HELLO', cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS FULL $JOB_NAME', to: 'kaurjass261997@gmail.com , prabhjotsingh326@gmail.com'
+        }
+            
     }
 }
 
