@@ -28,6 +28,11 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+        stage('Code Scan') {
+            steps {
+                sh 'mvn sonar:sonar'
+            }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test'
