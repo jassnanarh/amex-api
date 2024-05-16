@@ -28,9 +28,12 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('Code Scan') {
+       stage('Code Scan') {
             steps {
-                sh 'mvn sonar:sonar'
+                withSonarQubeEnv('pragra-sonar') {
+                    sh 'mvn  -Dsonar.projectKey=pragra-ca_amex-api -Dsonar.organization=pragra-ca org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                }
+               
             }
         }
         stage('Test') {
