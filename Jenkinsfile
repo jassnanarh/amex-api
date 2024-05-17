@@ -1,26 +1,27 @@
 pipeline {
-    agent { label 'master'}
-    tools { 
+    agent {label 'master'}
+    tools{
         jdk 'jdk17'
         maven 'maven'
     }
     environment {
-        CHIEF_AUTHOR = 'ASHER'
-        RETRY_COUNT = 3
+        CHEIF_AUTHOR = 'Asher'
+        RETRY_CNT = 3
     }
-    options { 
+    options {
         buildDiscarder(logRotator(numToKeepStr: '3')) 
         disableConcurrentBuilds()
         quietPeriod(5)
     }
     parameters {
-        choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
+     choice(name: 'TARGET_ENV', choices: ['UAT', 'SIT', 'STAGING'], description: 'Pick something')
     }
-    stages{
+ 
+    stages {
         stage('Checkout SCM') {
             steps {
                 checkout scm
-                sh "echo $CHIEF_AUTHOR"
+                sh "echo $CHEIF_AUTHOR"
             }
         }
         stage('Compile') {
@@ -36,29 +37,25 @@ pipeline {
                
             }
         }
-        stage('Test') {
+         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
-        stage('Package') {
+         stage('Package') {
             steps {
                 sh 'mvn package'
                 sh 'echo done'
             }
         }
+        
     }
     post {
-        always {
-            emailext attachLog: true, body: 'hello', subject: "BUILD STATUS $JOB_NAME", to: 'kaurjass261997@gmail.com, prabhjotsingh326@gmail.com'
-        }
-        success {
-            mail bcc: '', body: 'HELLO', cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS FULL $JOB_NAME', to: 'kaurjass261997@gmail.com , prabhjotsingh326@gmail.com'
-        }
-            
+       always {
+           sh 'echo Completed'
+       }
     }
 }
-
     
 
             
