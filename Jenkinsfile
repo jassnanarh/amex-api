@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Code Scan') {
             steps {
-                withSonarQubeEnv('jass-sonar') {
+                withSonarQubeEnv('sonar') {
                     sh 'mvn  -Dsonar.projectKey=jassnanarh_amex-api -Dsonar.organization=jassnanarh org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
                 }
                
